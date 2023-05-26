@@ -245,3 +245,26 @@ openssl x509 -noout -modulus -in client-self-signed-crt.pem | openssl md5
 # (stdin)= 5b87a3317a392f1350d54f8f99837d8b
 ```
 
+## Validate if `JSK` with others
+
+Need to convert back `JKS` => `PCK12` => `CRT` + `KEY`
+
+```bash
+rm ./degenerate-server-keystore.p12
+keytool -importkeystore -srckeystore server-keystore.jks -destkeystore degenerate-server-keystore.p12 -srcstoretype jks -srcstorepass serverkeystorepassword -deststoretype pkcs12 -deststorepass serverkeystorepassword -alias aaa-alt
+# Importing keystore server-keystore.jks to degenerate-server-keystore.p12...
+openssl pkcs12 -in degenerate-server-keystore.p12 -nocerts -nodes -passin pass:serverkeystorepassword | openssl rsa > degenerate-server-key.pem
+openssl pkcs12 -in degenerate-server-keystore.p12 -nokeys -passin pass:serverkeystorepassword | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > degenerate-server-ca-signed-crt.pem
+
+# It should be the same
+md5 server-key.pem
+# MD5 (server-key.pem) = 99bd7b72b95e9f739694d2b0bc131a8e
+md5 degenerate-server-key.pem
+# MD5 (degenerate-server-key.pem) = 99bd7b72b95e9f739694d2b0bc131a8e
+
+# It should be the same
+md5 server-ca-signed-crt.pem
+# MD5 (server-ca-signed-crt.pem) = a56809780290fda9736c08841a8b1330
+md5 degenerate-server-ca-signed-crt.pem
+# MD5 (degenerate-server-ca-signed-crt.pem) = a56809780290fda9736c08841a8b1330
+```
