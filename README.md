@@ -26,3 +26,9 @@ In practical daily SSL, browser and website for example. Browser only need to ve
 - `CRT` = certificate issued to a specific domain contains public key, subject details (such as the server's domain name), the issuing authority, the validity period, etc.
 - CA certificate = signed and issued the server certificate, contains CA's public key, subject details (such as the CA's name), the issuer (usually itself for Root CAs), validity period, etc.
 - The CA certificate is used for verifying the authenticity of the server certificate. Browsers and operating systems maintain a list of trusted CAs
+
+## Prerequisite
+
+1. Install [Node.js](https://nodejs.org/en), and `npm install` to install packages needed
+2. Install uility tool: `openssl`, `keytool`, `md5`
+
