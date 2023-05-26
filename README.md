@@ -162,3 +162,18 @@ openssl req -new -sha256 -key client-key.pem -out client-csr.pem
 # A challenge password []:
 # An optional company name []:
 ```
+
+### Step 7) Generate client-CRT (certificate) with CA and without CA (self-signed)
+
+Client using `client-ca-key.pem` or `client-key.pem` (self-signed) to sign certificate.
+
+```bash
+# CA
+openssl x509 -req -days 365 -in client-csr.pem -CA client-ca-crt.pem -CAkey client-ca-key.pem -CAcreateserial -out client-ca-signed-crt.pem
+openssl verify -CAfile client-ca-crt.pem client-ca-signed-crt.pem
+
+# self-signed
+openssl x509 -req -days 365 -in client-csr.pem -signkey client-key.pem -out client-self-signed-crt.pem
+openssl verify -CAfile client-self-signed-crt.pem client-self-signed-crt.pem
+```
+
