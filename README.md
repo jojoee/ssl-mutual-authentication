@@ -313,3 +313,15 @@ curl -k https://server.aaa.com:3443
 # soft reject if "--requestCert", client able to connect, server knows the client is unauthorized and decide to how to with it
 # hard reject if "--requestCert --rejectUnauthorized", client not able to connect
 ```
+
+## Reference
+
+- https://www.cloudflare.com/learning/access-management/what-is-mutual-tls/
+- https://www.f5.com/labs/learning-center/what-is-mtls
+- https://www.matteomattei.com/client-and-server-ssl-mutual-authentication-with-nodejs/
+- https://gist.github.com/pcan/e384fcad2a83e3ce20f9a4c33f4a13ae
+- https://engineering.circle.com/https-authorized-certs-with-node-js-315e548354a2
+- https://medium.com/swlh/learning-configuring-https-for-node-js-5097e44320e3
+- https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
+- https://stackoverflow.com/questions/21397809/create-a-trusted-self-signed-ssl-cert-for-localhost-for-use-with-express-node
+- https://nodejs.org/api/tls.html
