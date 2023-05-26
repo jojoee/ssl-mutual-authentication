@@ -287,3 +287,22 @@ openssl x509 -in server-self-signed-crt.pem -text -noout > server-self-signed-cr
 openssl x509 -in client-ca-signed-crt.pem -text -noout > client-ca-signed-crt.pem.txt
 openssl x509 -in client-self-signed-crt.pem -text -noout > client-self-signed-crt.pem.txt
 ```
+
+## Check if server have SSL setup
+
+```bash
+openssl s_client -connect server.aaa.com:3443
+openssl s_client -connect server.aaa.com:3443 | openssl x509 -noout -dates
+# depth=0 C = IT, ST = Florence, L = Campi Bisenzio, O = AAA Ltd, OU = DevOps, CN = server.aaa.com, emailAddress = info@aaa.com
+# verify error:num=20:unable to get local issuer certificate
+# verify return:1
+# depth=0 C = IT, ST = Florence, L = Campi Bisenzio, O = AAA Ltd, OU = DevOps, CN = server.aaa.com, emailAddress = info@aaa.com
+# verify error:num=21:unable to verify the first certificate
+# verify return:1
+# depth=0 C = IT, ST = Florence, L = Campi Bisenzio, O = AAA Ltd, OU = DevOps, CN = server.aaa.com, emailAddress = info@aaa.com
+# verify return:1
+# 140704365749824:error:1409445C:SSL routines:ssl3_read_bytes:tlsv13 alert certificate required:ssl/record/rec_layer_s3.c:1544:SSL alert number 116
+# notBefore=May 25 11:23:02 2023 GMT
+# notAfter=May 24 11:23:02 2024 GMT
+```
+
