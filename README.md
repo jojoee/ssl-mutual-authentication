@@ -177,3 +177,23 @@ openssl x509 -req -days 365 -in client-csr.pem -signkey client-key.pem -out clie
 openssl verify -CAfile client-self-signed-crt.pem client-self-signed-crt.pem
 ```
 
+## How to run and test
+
+```bash
+# Server CA, Client CA
+node server.js --key=server-key.pem --cert=server-ca-signed-crt.pem --ca=client-ca-crt.pem --requestCert --rejectUnauthorized
+node client.js --key=client-key.pem --cert=client-ca-signed-crt.pem --ca=server-ca-crt.pem --host=server.aaa.com:3443 # ok-authorized-client
+
+# Server self-signed, Client self-signed
+node server.js --key=server-key.pem --cert=server-self-signed-crt.pem --ca=client-self-signed-crt.pem --requestCert --rejectUnauthorized
+node client.js --key=client-key.pem --cert=client-self-signed-crt.pem --ca=server-self-signed-crt.pem --host=server.aaa.com:3443 # ok-authorized-client
+
+# Server CA, Client self-signed
+node server.js --key=server-key.pem --cert=server-ca-signed-crt.pem --ca=client-self-signed-crt.pem --requestCert --rejectUnauthorized
+node client.js --key=client-key.pem --cert=client-self-signed-crt.pem --ca=server-ca-crt.pem --host=server.aaa.com:3443 # ok-authorized-client
+
+# Server self-signed, Client CA
+node server.js --key=server-key.pem --cert=server-self-signed-crt.pem --ca=client-ca-crt.pem --requestCert --rejectUnauthorized
+node client.js --key=client-key.pem --cert=client-ca-signed-crt.pem --ca=server-self-signed-crt.pem --host=server.aaa.com:3443 # ok-authorized-client
+```
+
