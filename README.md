@@ -42,3 +42,30 @@ echo '127.0.0.1 server.aaa.com' >> /etc/hosts
 echo '127.0.0.1 client.bbb.com' >> /etc/hosts
 cat /etc/hosts # to verify
 ```
+
+### Step 2) Generate server-CA-KEY and server-CA-CRT
+
+```bash
+openssl req -new -x509 -days 365 -keyout server-ca-key.pem -out server-ca-crt.pem # 123456
+# Generating a RSA private key
+# .........................................................+++++
+# ......................+++++
+# writing new private key to 'server-ca-key.pem'
+# Enter PEM pass phrase:
+# Verifying - Enter PEM pass phrase:
+# -----
+# You are about to be asked to enter information that will be incorporated
+# into your certificate request.
+# What you are about to enter is what is called a Distinguished Name or a DN.
+# There are quite a few fields but you can leave some blank
+# For some fields there will be a default value,
+# If you enter '.', the field will be left blank.
+# -----
+# Country Name (2 letter code) [AU]:IT
+# State or Province Name (full name) [Some-State]:Florence
+# Locality Name (eg, city) []:Campi Bisenzio
+# Organization Name (eg, company) [Internet Widgits Pty Ltd]:AAA Ltd
+# Organizational Unit Name (eg, section) []:DevOps
+# Common Name (e.g. server FQDN or YOUR name) []:aaa.com
+# Email Address []:info@aaa.com
+```
