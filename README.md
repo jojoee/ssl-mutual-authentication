@@ -70,7 +70,7 @@ openssl req -new -x509 -days 365 -keyout server-ca-key.pem -out server-ca-crt.pe
 # Email Address []:info@aaa.com
 ```
 
-### Step 3) Genearate server-KEY an server-CSR
+### Step 3) Generate server-KEY an server-CSR
 
 ```bash
 openssl genrsa -out server-key.pem 4096
