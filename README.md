@@ -268,3 +268,10 @@ md5 server-ca-signed-crt.pem
 md5 degenerate-server-ca-signed-crt.pem
 # MD5 (degenerate-server-ca-signed-crt.pem) = a56809780290fda9736c08841a8b1330
 ```
+
+## Read `JKS` file
+
+```bash
+keytool -v -list -keystore server-keystore.jks -storepass "serverkeystorepassword" > server-keystore.jks.txt
+keytool -v -list -keystore client-keystore.jks -storepass "clientkeystorepassword" > client-keystore.jks.txt
+```
