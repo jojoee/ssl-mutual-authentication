@@ -306,3 +306,10 @@ openssl s_client -connect server.aaa.com:3443 | openssl x509 -noout -dates
 # notAfter=May 24 11:23:02 2024 GMT
 ```
 
+## Check if server require client-CRT
+
+```bash
+curl -k https://server.aaa.com:3443
+# soft reject if "--requestCert", client able to connect, server knows the client is unauthorized and decide to how to with it
+# hard reject if "--requestCert --rejectUnauthorized", client not able to connect
+```
