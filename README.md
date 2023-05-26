@@ -218,3 +218,30 @@ keytool -importkeystore -srckeystore client-keystore.p12 -srcstoretype PKCS12 -d
 # Entry for alias bbb-alt successfully imported.
 # Import command completed:  1 entries successfully imported, 0 entries failed or cancelled
 ```
+
+## Validate if `KEY` and `CSR` and `CRT` file are comptible to each others
+
+"modulus" should be the same to all. If the module match, it means they are meant to be used together.
+
+```bash
+# Server
+openssl rsa -noout -modulus -in server-key.pem | openssl md5
+# (stdin)= b8383414c800f6b8bbe6c8058b7d4f10
+openssl req -noout -modulus -in server-csr.pem | openssl md5
+# (stdin)= b8383414c800f6b8bbe6c8058b7d4f10
+openssl x509 -noout -modulus -in server-ca-signed-crt.pem | openssl md5
+# (stdin)= b8383414c800f6b8bbe6c8058b7d4f10
+openssl x509 -noout -modulus -in server-self-signed-crt.pem | openssl md5
+# (stdin)= b8383414c800f6b8bbe6c8058b7d4f10
+
+# Client
+openssl rsa -noout -modulus -in client-key.pem | openssl md5
+# (stdin)= 5b87a3317a392f1350d54f8f99837d8b
+openssl req -noout -modulus -in client-csr.pem | openssl md5
+# (stdin)= 5b87a3317a392f1350d54f8f99837d8b
+openssl x509 -noout -modulus -in client-ca-signed-crt.pem | openssl md5
+# (stdin)= 5b87a3317a392f1350d54f8f99837d8b
+openssl x509 -noout -modulus -in client-self-signed-crt.pem | openssl md5
+# (stdin)= 5b87a3317a392f1350d54f8f99837d8b
+```
+
