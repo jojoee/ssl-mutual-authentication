@@ -95,3 +95,17 @@ openssl req -new -sha256 -key server-key.pem -out server-csr.pem
 # A challenge password []:
 # An optional company name []:
 ```
+
+### Step 4) Generate server-CRT with CA and without CA (self-signed)
+
+Server using `server-ca-key.pem` or `server-key.pem` (self-signed) to sign certificate.
+
+```bash
+# CA
+openssl x509 -req -days 365 -in server-csr.pem -CA server-ca-crt.pem -CAkey server-ca-key.pem -CAcreateserial -out server-ca-signed-crt.pem
+openssl verify -CAfile server-ca-crt.pem server-ca-signed-crt.pem
+
+# self-signed
+openssl x509 -req -days 365 -in server-csr.pem -signkey server-key.pem -out server-self-signed-crt.pem
+openssl verify -CAfile server-self-signed-crt.pem server-self-signed-crt.pem
+```
