@@ -197,3 +197,24 @@ node server.js --key=server-key.pem --cert=server-self-signed-crt.pem --ca=clien
 node client.js --key=client-key.pem --cert=client-ca-signed-crt.pem --ca=server-self-signed-crt.pem --host=server.aaa.com:3443 # ok-authorized-client
 ```
 
+## JKS (Java KeyStore)
+
+`JKS` is a Java specific format. `KEY` + `CRT` => `PKC12` => `JKS`, change `yourkeystorepassword` password to your choice.
+
+```bash
+# Server
+rm ./server-keystore.p12 ./server-keystore.jks
+openssl pkcs12 -export -in server-ca-signed-crt.pem -inkey server-key.pem -out server-keystore.p12 -name aaa-alt -password pass:serverkeystorepassword
+keytool -importkeystore -srckeystore server-keystore.p12 -srcstoretype PKCS12 -destkeystore server-keystore.jks -deststoretype JKS -srcstorepass serverkeystorepassword -deststorepass serverkeystorepassword
+# Importing keystore server-keystore.p12 to server-keystore.jks...
+# Entry for alias aaa-alt successfully imported.
+# Import command completed:  1 entries successfully imported, 0 entries failed or cancelled
+
+# Client
+rm ./client-keystore.p12 ./client-keystore.jks
+openssl pkcs12 -export -in client-ca-signed-crt.pem -inkey client-key.pem -out client-keystore.p12 -name bbb-alt -password pass:clientkeystorepassword
+keytool -importkeystore -srckeystore client-keystore.p12 -srcstoretype PKCS12 -destkeystore client-keystore.jks -deststoretype JKS -srcstorepass clientkeystorepassword -deststorepass clientkeystorepassword
+# Importing keystore client-keystore.p12 to client-keystore.jks...
+# Entry for alias bbb-alt successfully imported.
+# Import command completed:  1 entries successfully imported, 0 entries failed or cancelled
+```
