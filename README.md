@@ -32,3 +32,13 @@ In practical daily SSL, browser and website for example. Browser only need to ve
 1. Install [Node.js](https://nodejs.org/en), and `npm install` to install packages needed
 2. Install uility tool: `openssl`, `keytool`, `md5`
 
+## Getting Started
+
+### Step 1) Add test domain into `hosts` file
+
+```bash
+# as root
+echo '127.0.0.1 server.aaa.com' >> /etc/hosts
+echo '127.0.0.1 client.bbb.com' >> /etc/hosts
+cat /etc/hosts # to verify
+```
