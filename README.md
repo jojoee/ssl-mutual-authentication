@@ -275,3 +275,15 @@ md5 degenerate-server-ca-signed-crt.pem
 keytool -v -list -keystore server-keystore.jks -storepass "serverkeystorepassword" > server-keystore.jks.txt
 keytool -v -list -keystore client-keystore.jks -storepass "clientkeystorepassword" > client-keystore.jks.txt
 ```
+
+## Read `CRT` file
+
+```bash
+# Server
+openssl x509 -in server-ca-signed-crt.pem -text -noout > server-ca-signed-crt.pem.txt
+openssl x509 -in server-self-signed-crt.pem -text -noout > server-self-signed-crt.pem.txt
+
+# Client
+openssl x509 -in client-ca-signed-crt.pem -text -noout > client-ca-signed-crt.pem.txt
+openssl x509 -in client-self-signed-crt.pem -text -noout > client-self-signed-crt.pem.txt
+```
